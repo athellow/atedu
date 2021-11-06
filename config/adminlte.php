@@ -192,7 +192,7 @@ return [
     'logout_url' => 'admin.logout',
     'login_url' => 'admin.login',
     'register_url' => '',
-    'password_reset_url' => 'admin.password.request',
+    'password_reset_url' => 'admin.password.update',
     'password_email_url' => 'admin.password.email',
     'profile_url' => false,
 
