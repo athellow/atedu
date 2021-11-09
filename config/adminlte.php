@@ -253,6 +253,49 @@ return [
             'label'       => 4,
             'label_color' => 'success',
         ],
+        [
+            'text'    => '前台装饰',
+            'icon'    => 'fas fa-fw fa-cogs',
+            'submenu' => [
+                [
+                    'text' => '电脑端',
+                    'icon' => 'fas fa-fw fa-desktop',
+                    'url'  => '#',
+                ],
+                [
+                    'text'    => '移动端',
+                    'icon'    => 'fas fa-fw fa-mobile',
+                    'url'     => '#',
+                ],
+                [
+                    'text' => '公众号',
+                    'icon' => 'fas fa-fw fa-comments',
+                    'url'  => '#',
+                ],
+            ],
+        ],
+        [
+            'text'    => '课程管理',
+            'icon'    => 'fas fa-fw fa-calendar',
+            'submenu' => [
+                [
+                    'text' => '录播',
+                    'icon' => 'fas fa-fw fa-file-video',
+                    'url'  => '#',
+                ],
+            ],
+        ],
+        [
+            'text'    => '用户管理',
+            'icon'    => 'fas fa-fw fa-user',
+            'submenu' => [
+                [
+                    'text' => '用户列表',
+                    'icon' => 'fas fa-fw fa-user-circle',
+                    'url'  => '#',
+                ],
+            ],
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
