@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\IndexController;
 use App\Http\Controllers\Backend\UserProfileController;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'verified']], 
     // User & Profile...
     Route::get('/user/profile', [UserProfileController::class, 'show'])
                 ->name('admin.profile.show');
+    
+    // User & Profile...
+    Route::resource('/admin', AdminController::class);
 
     // // API...
     // if (Jetstream::hasApiFeatures()) {

@@ -296,6 +296,33 @@ return [
                 ],
             ],
         ],
+        [
+            'text'    => '财务管理',
+            'icon'    => 'fas fa-fw fa-calendar',
+            'submenu' => [
+                [
+                    'text' => '用户列表',
+                    'icon' => 'fas fa-fw fa-yen',
+                    'url'  => '#',
+                ],
+            ],
+        ],
+        [
+            'text'    => '系统管理',
+            'icon'    => 'fas fa-fw fa-cog',
+            'submenu' => [
+                [
+                    'text' => '账号管理',
+                    'icon' => 'fas fa-fw fa-user-circle',
+                    'url'  => 'admin/admin',
+                ],
+                [
+                    'text' => '系统配置',
+                    'icon' => 'fas fa-fw fa-cogs',
+                    'url'  => '#',
+                ],
+            ],
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
