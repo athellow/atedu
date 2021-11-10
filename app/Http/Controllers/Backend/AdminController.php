@@ -13,14 +13,27 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $params = $request->input();
+
+        $map = [];
+
+        if(!empty($params['name'])) {
+            $map[] = ['name', 'like', '%'. $params['name'] .'%'];
+        }
+        if(!empty($params['email'])) {
+            $map[] = ['email', 'like', '%'. $params['email'] .'%'];
+        }
+
         $administrators = Admin::query()
+            ->where($map)
             ->orderByDesc('id')
             ->paginate(request()->input('size', 1));
 
         return view('backend.admin.index', [
             'administrators' => $administrators,
+            'param' => $params
         ]);
     }
 

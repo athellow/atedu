@@ -33,22 +33,24 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-12">
             <div class="card">
-              <div class="card-body">
+              <div class="card-header">
                 <form class="form-inline" id="searchForm" action="{{ route('admin.index') }}" method="GET">
                   <div class="form-group">
-                    <input type="text" class="form-control form-control-sm" id="exampleInputEmail1" placeholder="name">
+                    <input type="text" class="form-control form-control-md" name="name" value="{{!empty($param['name']) ?  $param['name'] : ''}}" placeholder="name">
                   </div>
                   <div class="form-group">
-                    <input type="text" class="form-control form-control-sm" id="exampleInputPassword1" placeholder="email">
+                    <input type="text" class="form-control form-control-md" name="email" value="{{!empty($param['email']) ?  $param['email'] : ''}}" placeholder="email">
                   </div>
                   <div class="form-group">
-                      <button class="btn btn-sm btn-primary" type="submit"><i class="fa fa-search"></i> 查询
-                      </button>
+                    <button class="btn btn-md btn-primary" type="submit">
+                      <i class="fa fa-search"></i> 查询
+                    </button>
                   </div>
                   <div class="form-group">
-                    <button onclick="clearSearchForm()" class="btn btn-sm btn-default" type="button"><i class="fa  fa-eraser"></i> 清空
+                    <button onclick="clearSearchForm()" class="btn btn-md btn-default" type="button">
+                      <i class="fa fa-eraser"></i> 清空
                     </button>
                   </div>
                 </form>
@@ -60,16 +62,16 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="card-header">
-              <a title="添加" data-toggle="tooltip" class="btn btn-primary btn-sm "  href="{:url('add')}">
-                  <i class="fa fa-plus"></i> 添加
-              </a>
-              <a class="btn btn-danger btn-sm AjaxButton" data-toggle="tooltip" title="删除选中数据" data-confirm-title="删除确认" data-confirm-content="您确定要删除选中的数据吗？" data-id="checked" data-url="{:url('del')}">
-                  <i class="fa fa-trash"></i> 删除
-              </a>
-              <a class="btn btn-success btn-sm ReloadButton" data-toggle="tooltip" title="刷新" data-id="checked" data-url="{:url('del')}">
-                  <i class="fa fa-spinner"></i> 刷新
-              </a>
+              <div class="card-header" id="button-card-header">
+                <a title="添加" data-toggle="tooltip" class="btn btn-primary btn-md "  href="{:url('add')}">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-danger btn-md AjaxButton" data-toggle="tooltip" title="删除选中数据" data-confirm-title="删除确认" data-confirm-content="您确定要删除选中的数据吗？" data-id="checked" data-url="{:url('del')}">
+                    <i class="fa fa-trash"></i> 删除
+                </a>
+                <a class="btn btn-success btn-md ReloadButton" data-toggle="tooltip" title="刷新" data-id="checked" data-url="{:url('del')}">
+                    <i class="fa fa-spinner"></i> 刷新
+                </a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -131,8 +133,9 @@
                 "responsive": true, 
                 "lengthChange": false, 
                 "autoWidth": false,
+                "searching": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            }).buttons().container().appendTo('#button-card-header');
 
             // $('#example2').DataTable({
             //     "paging": true,
