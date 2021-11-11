@@ -102,6 +102,7 @@
     @endif
 
     {{-- Custom Scripts --}}
+    <script src="{{ asset('static/admin/js/admin.js') }}"></script>
     @yield('adminlte_js')
 
 </body>

@@ -12,6 +12,7 @@
 @section('body_data', $layoutHelper->makeBodyData())
 
 @section('body')
+<div class="wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -22,7 +23,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">DataTables</li>
+              <li class="breadcrumb-item active">账号管理</li>
             </ol>
           </div>
         </div>
@@ -49,7 +50,7 @@
                     </button>
                   </div>
                   <div class="form-group">
-                    <button onclick="clearSearchForm()" class="btn btn-md btn-default" type="button">
+                    <button onclick="clearSearchForm()" class="btn btn-md btn-default">
                       <i class="fa fa-eraser"></i> 清空
                     </button>
                   </div>
@@ -63,13 +64,13 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header" id="button-card-header">
-                <a title="添加" data-toggle="tooltip" class="btn btn-primary btn-md "  href="{:url('add')}">
+                <a title="添加" data-toggle="tooltip" class="btn btn-primary btn-md "  href="{{ route('admin.create') }}">
                     <i class="fa fa-plus"></i> 添加
                 </a>
                 <a class="btn btn-danger btn-md AjaxButton" data-toggle="tooltip" title="删除选中数据" data-confirm-title="删除确认" data-confirm-content="您确定要删除选中的数据吗？" data-id="checked" data-url="{:url('del')}">
                     <i class="fa fa-trash"></i> 删除
                 </a>
-                <a class="btn btn-success btn-md ReloadButton" data-toggle="tooltip" title="刷新" data-id="checked" data-url="{:url('del')}">
+                <a class="btn btn-success btn-md ReloadButton" data-toggle="tooltip" title="刷新">
                     <i class="fa fa-spinner"></i> 刷新
                 </a>
               </div>
@@ -119,6 +120,7 @@
       <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+</div>
 @stop
 
 @section('adminlte_js')

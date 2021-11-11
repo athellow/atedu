@@ -25,7 +25,13 @@ class CreateAdminsTable extends Migration
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
+            $table->string('last_login_ip')->default('')->comment('最后登录IP');
+            $table->timestamp('last_login_date')->nullable()->comment('最后登录时间');
+            $table->tinyInteger('status')->default(0)->comment('状态 0 正常, 1 禁用');
+            $table->integer('login_times')->default(0)->comment('登录次数');
             $table->timestamps();
+
+            $table->engine = 'InnoDB';
         });
     }
 
