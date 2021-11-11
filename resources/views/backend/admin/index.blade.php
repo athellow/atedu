@@ -95,12 +95,11 @@
                         class="btn btn-primary btn-xs" title="修改" data-toggle="tooltip">
                         <i class="fa fa-edit"></i>
                     </a>
-                    <a class="btn btn-danger btn-xs AjaxButton" data-toggle="tooltip" title="删除"
-                        data-id="{{ $item['id'] }}" data-confirm-title="删除确认"
-                        data-confirm-content='您确定要删除ID为 <span class="text-red">{{ $item["id"] }}</span> 的数据吗'
-                        data-url="{{ route('admin.edit', $item['id']) }}">
+                    <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modal-delete" 
+                      title="删除" data-id="{{ $item['id'] }}" data-url="{{ route('admin.edit', $item['id']) }}"
+                      onclick="modalValue({{$item['id']}})">
                         <i class="fa fa-trash"></i>
-                    </a>
+                    </button>
                     </td>
                   </tr>
                   @endforeach
@@ -130,6 +129,35 @@
       <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+    {{-- 确认删除 --}}
+    <div class="modal fade" id="modal-delete" tabIndex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">请确认</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        ×
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="lead">
+                        <i class="fa fa-question-circle fa-lg"></i>
+                        确定要删除这篇文章?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <form method="POST" id="modal-delete-form" action="{{ route('admin.destroy', 1) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-times-circle"></i> 是的
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @stop
 
@@ -158,5 +186,10 @@
             //     "responsive": true,
             // });
         });
+
+        function modalValue(id) {
+          $("#modal-delete-form").attr('action', "{{ url('admin/destroy') }}" + '/' + id)
+          alert($("#modal-delete-form").attr('action'));
+        }
     </script>
 @stop
