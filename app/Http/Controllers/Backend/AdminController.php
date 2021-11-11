@@ -81,4 +81,59 @@ class AdminController extends Controller
             'user' => $request->user(),
         ]);
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $admin = Admin::query()->where('id', $id)->firstOrFail();
+        // $admin['role_ids'] = $admin->roles->pluck('id')->toArray();
+
+        $roles = AdminRole::query()->select(['id', 'title'])->get();
+        
+        return view('backend.admin.edit', [
+            'id' => $id,
+            'admin' => $admin,
+            'roles' => $roles,
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\Backend\AdminRequest  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(AdminRequest $request, $id)
+    {
+        $administrator = Admin::query()->where('id', $id)->firstOrFail();
+
+        $administrator->fill($request->filldata())->save();
+
+        $administrator->roles()->sync($request->input('role_ids', []));
+
+        return redirect(route('admin.index'))->with('success', '更新成功.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $administrator = Admin::query()->where('id', $id)->firstOrFail();
+        if ($administrator->isSuper()) {
+            return $this->error(__('当前用户是超级管理员账户无法删除'));
+        }
+        $administrator->delete();
+
+        return $this->success();
+    }
 }

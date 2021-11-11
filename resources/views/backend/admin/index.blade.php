@@ -67,9 +67,6 @@
                 <a title="添加" data-toggle="tooltip" class="btn btn-primary btn-md "  href="{{ route('admin.create') }}">
                     <i class="fa fa-plus"></i> 添加
                 </a>
-                <a class="btn btn-danger btn-md AjaxButton" data-toggle="tooltip" title="删除选中数据" data-confirm-title="删除确认" data-confirm-content="您确定要删除选中的数据吗？" data-id="checked" data-url="{:url('del')}">
-                    <i class="fa fa-trash"></i> 删除
-                </a>
                 <a class="btn btn-success btn-md ReloadButton" data-toggle="tooltip" title="刷新">
                     <i class="fa fa-spinner"></i> 刷新
                 </a>
@@ -83,6 +80,7 @@
                     <th>{{__('name')}}</th>
                     <th>{{__('email')}}</th>
                     <th>{{__('created_at')}}</th>
+                    <th>{{__('operate')}}</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -92,6 +90,18 @@
                     <td>{{$item['name']}}</td>
                     <td>{{$item['email']}}</td>
                     <td>{{$item['created_at']}}</td>
+                    <td>
+                    <a href="{{ route('admin.edit', $item['id']) }}"
+                        class="btn btn-primary btn-xs" title="修改" data-toggle="tooltip">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <a class="btn btn-danger btn-xs AjaxButton" data-toggle="tooltip" title="删除"
+                        data-id="{{ $item['id'] }}" data-confirm-title="删除确认"
+                        data-confirm-content='您确定要删除ID为 <span class="text-red">{{ $item["id"] }}</span> 的数据吗'
+                        data-url="{{ route('admin.edit', $item['id']) }}">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                    </td>
                   </tr>
                   @endforeach
                   </tbody>

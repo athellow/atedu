@@ -24,7 +24,7 @@
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="{{ url('admin')}}">首页</a></li>
               <li class="breadcrumb-item"><a href="{{ route('admin.index')}}">账号管理</a></li>
-              <li class="breadcrumb-item active">新增</li>
+              <li class="breadcrumb-item active">编辑</li>
             </ol>
           </div>
         </div>
@@ -44,15 +44,16 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form class="form-horizontal" action="{{ route('admin.store') }}" method="post">
+              <form class="form-horizontal" action="{{ route('admin.update', $id) }}" method="post">
                 @csrf
+                @method('PUT')
                 <div class="card-body offset-sm-1">
                   <div class="form-group">
                     <label for="role_ids" class="col-sm-2 col-form-label">角色</label>
                     <div class="col-sm-6">
                       <select multiple name="role_ids[]" class="custom-select {{ $errors->has('role_ids') ? 'is-invalid' : '' }}">
                         @foreach($roles as $index => $item)
-                        <option value="{{ $item['id'] }}" @if(in_array($item['id'], old('role_ids', []))) selected @endif>{{ $item['title'] }}</option>
+                        <option value="{{ $item['id'] }}" @if(in_array($item['id'], old('role_ids', $admin->roles->pluck('id')->toArray()))) selected @endif>{{ $item['title'] }}</option>
                         @endforeach
                       </select>
                       @if($errors->has('role_ids'))
@@ -65,7 +66,7 @@
                   <div class="form-group">
                     <label for="name" class="col-sm-2 col-form-label">姓名</label>
                     <div class="col-sm-6">
-                      <input type="text" name="name" id="name" value="{{ old('name') }}" placeholder="姓名"
+                      <input type="text" name="name" id="name" value="{{ old('name', $admin['name']) }}" placeholder="姓名"
                         class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}">
                       @if($errors->has('name'))
                       <div class="invalid-feedback">
@@ -77,8 +78,8 @@
                   <div class="form-group">
                     <label for="email" class="col-sm-2 col-form-label">邮箱</label>
                     <div class="col-sm-6">
-                      <input type="email" name="email" id="email" value="{{ old('email') }}" placeholder="邮箱"
-                        class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}">
+                      <input type="email" name="email" id="email" value="{{ old('email', $admin['email']) }}" placeholder="邮箱"
+                        class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" disabled>
                       @if($errors->has('email'))
                       <div class="invalid-feedback">
                         <strong>{{ $errors->first('email') }}</strong>
@@ -101,8 +102,9 @@
                   <div class="form-group">
                     <label class="col-sm-2 col-form-label" for="status">状态</label>
                     <div class="col-sm-6">
-                      <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" name="status" id="status" value="1" checked>
+                      <div class="custom-control custom-switch .custom-switch-off-info">
+                        <input type="checkbox" class="custom-control-input" name="status" id="status" value="1"
+                          @if(old('status', $admin['status']) == 1) checked @endif>
                         <label class="custom-control-label" for="status">启用/禁用</label>
                       </div>
                     </div>

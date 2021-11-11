@@ -4,6 +4,7 @@ namespace App\Http\Requests\Backend;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class AdminRequest extends FormRequest
 {
@@ -26,11 +27,12 @@ class AdminRequest extends FormRequest
     {
         $rules = [
             'name' => 'bail|required',
-            'email' => ['bail', 'required', 'email', 'unique:admins'],
+            'email' => ['bail', 'email'],
         ];
 
         if ($this->isMethod('post')) {
             $rules['role_ids'] = ['required', 'array'];
+            $rules['email'] = array_merge($rules['email'], ['required', 'unique:admins']);
             $rules['password'] = 'bail|required|min:6|max:16';
         }
 
@@ -58,7 +60,7 @@ class AdminRequest extends FormRequest
     {
         $data = [
             'name' => $this->input('name'),
-            'status' => $this->input('status', null) == null ? 1 : 0,
+            'status' => $this->input('status', 0),
         ];
 
         // 编辑
