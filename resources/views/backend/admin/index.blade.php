@@ -73,6 +73,8 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+                @include('backend.partials.errors')
+                @include('backend.partials.success')
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -129,35 +131,7 @@
       <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-    {{-- 确认删除 --}}
-    <div class="modal fade" id="modal-delete" tabIndex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">请确认</h4>
-                    <button type="button" class="close" data-dismiss="modal">
-                        ×
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p class="lead">
-                        <i class="fa fa-question-circle fa-lg"></i>
-                        确定要删除这篇文章?
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <form method="POST" id="modal-delete-form" action="{{ route('admin.destroy', 1) }}">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fa fa-times-circle"></i> 是的
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('backend.partials.modal')
 </div>
 @stop
 
@@ -186,10 +160,5 @@
             //     "responsive": true,
             // });
         });
-
-        function modalValue(id) {
-          $("#modal-delete-form").attr('action', "{{ url('admin/destroy') }}" + '/' + id)
-          alert($("#modal-delete-form").attr('action'));
-        }
     </script>
 @stop

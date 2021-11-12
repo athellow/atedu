@@ -65,7 +65,7 @@ class AdminController extends Controller
 
         $admin->roles()->sync($request->input('role_ids', []));
 
-        return redirect(route('admin.index'));
+        return redirect(route('admin.index'))->with('success', '添加成功.');;
     }
 
     /**
@@ -129,11 +129,12 @@ class AdminController extends Controller
     public function destroy($id)
     {
         $administrator = Admin::query()->where('id', $id)->firstOrFail();
-        if ($administrator->isSuper()) {
-            return $this->error(__('当前用户是超级管理员账户无法删除'));
-        }
-        $administrator->delete();
+        if ($administrator->isSuper()) 
+            return redirect(route('admin.index'))->withErrors(__('当前用户是超级管理员账户无法删除'));
+        
+        if($administrator->delete())
+            $administrator->roles()->detach();
 
-        return $this->success();
+        return redirect(route('admin.index'))->with('success', '删除成功.');
     }
 }
